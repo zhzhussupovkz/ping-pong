@@ -1,3 +1,10 @@
+=begin
+/**
+* @author zhzhussupovkz@gmail.com
+* @copyright (c) 2014 Zhussupov Zhassulan zhzhussupovkz@gmail.com
+*/
+=end
+#GameWindow - main window class
 class GameWindow < Gosu::Window
 
   include Singleton
@@ -5,17 +12,17 @@ class GameWindow < Gosu::Window
   def initialize
     super 640, 480, false
     self.caption = 'Ping pong'
-    @bg = Gosu::Image.new self, "images/bg.png", true
+    @world = World.new self
   end
 
   #draw
   def draw
-    @bg.draw(0,0,0)
+    @world.draw
   end
 
   #update
   def update
-    
+    @world.update
   end
 
   #button down event

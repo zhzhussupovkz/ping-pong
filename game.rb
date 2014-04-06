@@ -3,6 +3,9 @@
 require "gosu"
 require "singleton"
 
+require_relative "core/world"
+require_relative "core/wall"
+require_relative "core/ball"
 require_relative "game_window"
 
 GameWindow.instance.show
