@@ -10,6 +10,7 @@ class World
   def initialize window
     @window = window
     @bg = Gosu::Image.new window, "images/bg.png", true
+    @ui = Gosu::Font.new(window, 'Monospace', 20)
     @wall = Wall.new window
     @ball = Ball.new window, 320, 240
     @human = Human.new window
@@ -22,6 +23,8 @@ class World
     @ball.draw
     @human.draw
     @comp.draw
+    year = (Time.at(Time.now.to_i)).strftime("%Y")
+    @ui.draw("Copyright (c) #{year} by zhzhussupovkz", 175, 462, 4)
   end
 
   def update
