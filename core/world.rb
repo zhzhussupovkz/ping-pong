@@ -17,12 +17,15 @@ class World
     @comp = Computer.new window
   end
 
+  attr_reader :human, :comp
+
   def draw
     @bg.draw(0,0,0)
     @wall.draw
     @ball.draw
     @human.draw
     @comp.draw
+    @ui.draw("#{human.score} : #{comp.score}", 300, 5, 4)
     year = (Time.at(Time.now.to_i)).strftime("%Y")
     @ui.draw("Copyright (c) #{year} by zhzhussupovkz", 175, 462, 4)
   end

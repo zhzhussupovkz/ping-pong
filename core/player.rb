@@ -10,9 +10,10 @@ class Player
   def initialize window, x, y, img
     @window, @x, @y = window, x, y
     @img = Gosu::Image.new window, img, false
+    @score = 0
   end
 
-  attr_accessor :x, :y
+  attr_accessor :x, :y, :score
   attr_reader :window
 
   #draw
