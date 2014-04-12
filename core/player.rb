@@ -10,10 +10,10 @@ class Player
   def initialize window, x, y, img
     @window, @x, @y = window, x, y
     @img = Gosu::Image.new window, img, false
-    @score = 0
+    @score, @speed = 0, 5
   end
 
-  attr_accessor :x, :y, :score
+  attr_accessor :x, :y, :score, :speed
   attr_reader :window
 
   #draw
@@ -23,12 +23,12 @@ class Player
 
   #move up
   def up
-    @y -= 5.0 if @y >= 30
+    @y -= @speed if @y >= 30
   end
 
   #move down
   def down
-    @y += 5.0 if @y <= 415
+    @y += @speed if @y <= 415
   end
 
 end
