@@ -15,6 +15,8 @@ class GameWindow < Gosu::Window
     @world = World.new self
   end
 
+  attr_reader :world
+
   #draw
   def draw
     @world.draw

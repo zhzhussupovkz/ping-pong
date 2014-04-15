@@ -10,7 +10,7 @@ class Ball
   def initialize window, x, y
     @window, @x, @y = window, x, y
     @img = Gosu::Image.new window, 'images/ball.png', true
-    @angle, @speed = 90, 10
+    @angle, @speed = -25, 10
   end
 
   attr_accessor :x, :y
@@ -40,6 +40,40 @@ class Ball
     end
   end
 
+  #turn by direction when ricoshet
+  def turn_by_direction
+    case direction
+    when 'first'
+      if @x >= 612.5
+        @angle -= 90
+        window.world.human.add_score
+      elsif @y <= 31
+        @angle += 90
+      end
+    when 'second'
+      if @x <= 32
+        @angle += 90
+        window.world.comp.add_score
+      elsif @y <= 31
+        @angle -= 90
+      end
+    when 'third'
+      if @x <= 32
+        @angle -= 90
+        window.world.comp.add_score
+      elsif @y >= 454
+        @angle += 90
+      end
+    when 'fourth'
+      if @x >= 612.5
+        @angle += 90
+        window.world.human.add_score
+      elsif @y >= 454
+        @angle -= 90
+      end
+    end
+  end
+
   #ball direction
   def direction
     if angle.between?(0, 90)
@@ -55,26 +89,26 @@ class Ball
 
   #movement in the first quadrant
   def move_first
-    @x += 5 * Math.sin(Math::PI * angle / 180) if @x <= 612
-    @y -= 5 * Math.cos(Math::PI * angle / 180) if @y >= 30
+    @x += 2 * Math.sin(Math::PI * angle / 180) if @x <= 612
+    @y -= 2 * Math.cos(Math::PI * angle / 180) if @y >= 30
   end
 
   #movement in the second quadrant
   def move_second
-    @x -= 5 * Math.sin(2*Math::PI - Math::PI * angle / 180) if @x >= 32
-    @y -= 5 * Math.cos(2*Math::PI - Math::PI * angle / 180) if @y >= 30
+    @x -= 2 * Math.sin(2*Math::PI - Math::PI * angle / 180) if @x >= 32
+    @y -= 2 * Math.cos(2*Math::PI - Math::PI * angle / 180) if @y >= 30
   end
 
   #movement in the third quadrant
   def move_third
-    @x -= 5 * Math.sin(Math::PI * angle / 180 - Math::PI) if @x >= 32
-    @y += 5 * Math.cos(Math::PI * angle / 180 - Math::PI) if @y <= 454
+    @x -= 2 * Math.sin(Math::PI * angle / 180 - Math::PI) if @x >= 32
+    @y += 2 * Math.cos(Math::PI * angle / 180 - Math::PI) if @y <= 454
   end
 
   #movement in the fourth quadrant
   def move_fourth
-    @x -= 5 * Math.sin(Math::PI * angle / 180 - Math::PI) if @x <= 612
-    @y += 5 * Math.cos(Math::PI * angle / 180 - Math::PI) if @y <= 454
+    @x -= 2 * Math.sin(Math::PI * angle / 180 - Math::PI) if @x <= 612
+    @y += 2 * Math.cos(Math::PI * angle / 180 - Math::PI) if @y <= 454
   end
 
 end

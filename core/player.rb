@@ -31,4 +31,9 @@ class Player
     @y += @speed if @y <= 415
   end
 
+  #add score
+  def add_score
+    @score += 1
+  end
+
 end

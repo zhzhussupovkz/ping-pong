@@ -17,7 +17,7 @@ class World
     @comp = Computer.new window
   end
 
-  attr_reader :human, :comp
+  attr_reader :human, :comp, :ball
 
   def draw
     @bg.draw(0,0,0)
@@ -32,6 +32,13 @@ class World
 
   def update
     @human.move
+    play_game
+  end
+
+  #main game logic
+  def play_game
+    ball.move_by_direction
+    ball.turn_by_direction
   end
 
 end
