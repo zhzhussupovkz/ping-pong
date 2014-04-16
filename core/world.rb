@@ -39,6 +39,7 @@ class World
   def play_game
     ball.move_by_direction
     ball.turn_by_direction
+    ball.play_game_by_human
   end
 
 end

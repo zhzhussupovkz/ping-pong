@@ -10,7 +10,7 @@ class Ball
   def initialize window, x, y
     @window, @x, @y = window, x, y
     @img = Gosu::Image.new window, 'images/ball.png', true
-    @angle, @speed = -25, 10
+    @angle, @speed = -80, 10
   end
 
   attr_accessor :x, :y
@@ -40,11 +40,23 @@ class Ball
     end
   end
 
+  #play with human
+  def play_game_by_human
+    if x <=  53.0 && y < window.world.human.y + 36 && y > window.world.human.y
+      case direction
+      when 'second'
+        @angle += 90
+      when 'third'
+        @angle -= 90
+      end
+    end 
+  end
+
   #turn by direction when ricoshet
   def turn_by_direction
     case direction
     when 'first'
-      if @x >= 612.5
+      if @x >= 612
         @angle -= 90
         window.world.human.add_score
       elsif @y <= 31
@@ -65,7 +77,7 @@ class Ball
         @angle += 90
       end
     when 'fourth'
-      if @x >= 612.5
+      if @x >= 612
         @angle += 90
         window.world.human.add_score
       elsif @y >= 454
