@@ -40,6 +40,7 @@ class World
     ball.move_by_direction
     ball.turn_by_direction
     ball.play_game_by_human
+    ball.play_game_by_computer
   end
 
 end

@@ -40,14 +40,26 @@ class Ball
     end
   end
 
-  #play with human
+  #play by human
   def play_game_by_human
-    if x <=  53.0 && y < window.world.human.y + 36 && y > window.world.human.y
+    if x <=  53.0 && y < window.world.human.y + 40 && y > window.world.human.y
       case direction
       when 'second'
         @angle += 90
       when 'third'
         @angle -= 90
+      end
+    end 
+  end
+
+  #play by AI
+  def play_game_by_computer
+    if x >=  592 && y < window.world.comp.y + 40 && y > window.world.comp.y
+      case direction
+      when 'first'
+        @angle -= 90
+      when 'fourth'
+        @angle += 90
       end
     end 
   end
