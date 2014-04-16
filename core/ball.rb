@@ -71,6 +71,7 @@ class Ball
       if @x >= 612
         @angle -= 90
         window.world.human.add_score
+        reboot
       elsif @y <= 31
         @angle += 90
       end
@@ -78,6 +79,7 @@ class Ball
       if @x <= 32
         @angle += 90
         window.world.comp.add_score
+        reboot
       elsif @y <= 31
         @angle -= 90
       end
@@ -85,6 +87,7 @@ class Ball
       if @x <= 32
         @angle -= 90
         window.world.comp.add_score
+        reboot
       elsif @y >= 454
         @angle += 90
       end
@@ -92,6 +95,7 @@ class Ball
       if @x >= 612
         @angle += 90
         window.world.human.add_score
+        reboot
       elsif @y >= 454
         @angle -= 90
       end
@@ -133,6 +137,11 @@ class Ball
   def move_fourth
     @x -= 2 * Math.sin(Math::PI * angle / 180 - Math::PI) if @x <= 612
     @y += 2 * Math.cos(Math::PI * angle / 180 - Math::PI) if @y <= 454
+  end
+
+  #reboot ball, after add scores to players
+  def reboot
+    @x, @y, @angle = 320, 240, [-80,80].sample
   end
 
 end
