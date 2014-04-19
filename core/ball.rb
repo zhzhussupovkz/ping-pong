@@ -40,9 +40,9 @@ class Ball
     end
   end
 
-  #play by human
-  def play_game_by_human
-    if x <=  53.0 && y < window.world.human.y + 40 && y > window.world.human.y
+  #play by left player
+  def play_game_by_left
+    if x <=  53.0 && y < window.world.left.y + 40 && y > window.world.left.y
       case direction
       when 'second'
         @angle += 90
@@ -52,9 +52,9 @@ class Ball
     end 
   end
 
-  #play by AI
-  def play_game_by_computer
-    if x >=  592 && y < window.world.comp.y + 40 && y > window.world.comp.y
+  #play by right player
+  def play_game_by_right
+    if x >=  592 && y < window.world.right.y + 40 && y > window.world.right.y
       case direction
       when 'first'
         @angle -= 90
@@ -70,7 +70,7 @@ class Ball
     when 'first'
       if @x >= 612
         @angle -= 90
-        window.world.human.add_score
+        window.world.left.add_score
         reboot
       elsif @y <= 31
         @angle += 90
@@ -78,7 +78,7 @@ class Ball
     when 'second'
       if @x <= 32
         @angle += 90
-        window.world.comp.add_score
+        window.world.right.add_score
         reboot
       elsif @y <= 31
         @angle -= 90
@@ -86,7 +86,7 @@ class Ball
     when 'third'
       if @x <= 32
         @angle -= 90
-        window.world.comp.add_score
+        window.world.right.add_score
         reboot
       elsif @y >= 454
         @angle += 90
@@ -94,7 +94,7 @@ class Ball
     when 'fourth'
       if @x >= 612
         @angle += 90
-        window.world.human.add_score
+        window.world.left.add_score
         reboot
       elsif @y >= 454
         @angle -= 90
@@ -142,6 +142,8 @@ class Ball
   #reboot ball, after add scores to players
   def reboot
     @x, @y, @angle = 320, 240, [-80,80].sample
+    window.world.left.reboot
+    window.world.right.reboot
   end
 
 end
