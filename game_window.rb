@@ -12,7 +12,7 @@ class GameWindow < Gosu::Window
   def initialize
     super 640, 480, false
     self.caption = 'Ping pong'
-    @world = World.new self
+    @world = World.new self, true
   end
 
   attr_reader :world

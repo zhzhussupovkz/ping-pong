@@ -16,6 +16,7 @@ class Ball
   attr_accessor :x, :y
   attr_reader :window
 
+
   #draw ball
   def draw
     @img.draw_rot x, y, 2, angle
@@ -42,7 +43,8 @@ class Ball
 
   #play by left player
   def play_game_by_left
-    if x <=  53.0 && y < window.world.left.y + 40 && y > window.world.left.y
+    left = window.world.get_left_player
+    if x <=  53.0 && y < left.y + 40 && y > left.y
       case direction
       when 'second'
         @angle += 90
@@ -54,7 +56,8 @@ class Ball
 
   #play by right player
   def play_game_by_right
-    if x >=  592 && y < window.world.right.y + 40 && y > window.world.right.y
+    right = window.world.get_right_player
+    if x >=  592 && y < right.y + 40 && y > right.y
       case direction
       when 'first'
         @angle -= 90
@@ -70,7 +73,8 @@ class Ball
     when 'first'
       if @x >= 612
         @angle -= 90
-        window.world.left.add_score
+        left = window.world.get_left_player
+        left.add_score
         reboot
       elsif @y <= 31
         @angle += 90
@@ -78,7 +82,8 @@ class Ball
     when 'second'
       if @x <= 32
         @angle += 90
-        window.world.right.add_score
+        right = window.world.get_right_player
+        right.add_score
         reboot
       elsif @y <= 31
         @angle -= 90
@@ -86,7 +91,8 @@ class Ball
     when 'third'
       if @x <= 32
         @angle -= 90
-        window.world.right.add_score
+        right = window.world.get_right_player
+        right.add_score
         reboot
       elsif @y >= 454
         @angle += 90
@@ -94,7 +100,8 @@ class Ball
     when 'fourth'
       if @x >= 612
         @angle += 90
-        window.world.left.add_score
+        left = window.world.get_left_player
+        left.add_score
         reboot
       elsif @y >= 454
         @angle -= 90
@@ -142,8 +149,8 @@ class Ball
   #reboot ball, after add scores to players
   def reboot
     @x, @y, @angle = 320, 240, [-80,80].sample
-    window.world.left.reboot
-    window.world.right.reboot
+    window.world.me.reboot
+    window.world.you.reboot
   end
 
 end

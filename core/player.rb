@@ -7,8 +7,8 @@
 #Player - main player (human) class
 class Player
 
-  def initialize window, position
-    @window, @position = window, position
+  def initialize window, position, is_me = false
+    @window, @position, @is_me = window, position, is_me
     case @position
     when 'left'
       @img = Gosu::Image.new window, "images/r-left.png", false
@@ -18,10 +18,11 @@ class Player
       @x, @y = 600, 220
     end
     @score, @speed = 0, 5
+    @client = PingPongClient.new 'localhost', 4001
   end
 
   attr_accessor :x, :y, :score, :speed
-  attr_reader :window
+  attr_reader :window, :is_me
 
   #draw
   def draw
@@ -45,11 +46,7 @@ class Player
 
   #main movement
   def move
-    case @position
-    when 'left'
-      up if window.button_down? Gosu::KbW
-      down if window.button_down? Gosu::KbS
-    when 'right'
+    if is_me
       up if window.button_down? Gosu::KbUp
       down if window.button_down? Gosu::KbDown
     end
