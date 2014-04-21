@@ -15,12 +15,12 @@ class PingPongClient
   
   attr_reader :host, :port
 
-  def get key
-    request "GET #{key}"
+  def get ip
+    request "GET #{ip}"
   end
 
-  def set key, value
-    request "SET #{key} #{value}"
+  def set ip, value
+    request "SET #{ip} #{value}"
   end
   
   def close
@@ -29,7 +29,7 @@ class PingPongClient
 
   def request data
     @client = TCPSocket.new host, port
-    @client.write(string)
+    @client.write(data)
     @client.close_write
     @client.read
   end

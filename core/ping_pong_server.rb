@@ -16,7 +16,10 @@ class PingPongServer
     puts "Listening on port #{@server.local_address.ip_port}"
 
     #player's coordinates
-    @storage = {}
+    @storage = {
+      'left' => 320,
+      'right' => 320
+    }
   end
 
   #start server
@@ -33,14 +36,14 @@ class PingPongServer
   end
 
   def process request
-    command, key, value = request.split
+    command, position, value = request.split
     case command.upcase
     when 'GET'
       #get player's coordinates
-      @storage[key]
+      @storage[position].to_i
     when 'SET'
       #set player's coordinates
-      @storage[key] = value
+      @storage[position] = value.to_i
     when 'CLOSE'
       'Good bye!'
       exit
