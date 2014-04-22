@@ -20,6 +20,13 @@ class PingPongServer
       'left' => 220,
       'right' => 220
     }
+
+    #ball's properties
+    @ball = {
+      'x' => 320,
+      'y' => 240,
+      'angle' => 75
+    }
   end
 
   #start server
@@ -38,6 +45,9 @@ class PingPongServer
     case command.upcase
     when 'SET'
       @storage[position] = value
+    when 'REBOOT'
+      angle = [75, 275].sample
+      client.write("#{angle}")
     when 'GET'
       client.write("#{@storage[position]}")
     when 'CLOSE'

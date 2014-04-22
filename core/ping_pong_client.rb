@@ -17,15 +17,24 @@ class PingPongClient
 
   #set player's coordinate
   def set position, value
-    socket = TCPSocket.new(host, port)
+    socket = TCPSocket.new host, port
     socket.write "SET #{position} #{value}"
     socket.close
   end
 
   #get player's coordinate
   def get position
-    socket = TCPSocket.new(host, port)
+    socket = TCPSocket.new host, port
     socket.write "GET #{position}"
+    socket.close_write
+    return socket.read
+    socket.close
+  end
+
+  #reboot ball coordinates
+  def reboot_ball
+    socket = TCPSocket.new host, port
+    socket.write "REBOOT"
     socket.close_write
     return socket.read
     socket.close
@@ -33,7 +42,7 @@ class PingPongClient
 
   #close connection with server
   def close
-    socket = TCPSocket.new(host, port)
+    socket = TCPSocket.new host, port
     socket.write "CLOSE"
     socket.close
   end

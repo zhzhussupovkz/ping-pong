@@ -10,7 +10,8 @@ class Ball
   def initialize window, x, y
     @window, @x, @y = window, x, y
     @img = Gosu::Image.new window, 'images/ball.png', true
-    @angle, @speed = -80, 10
+    @angle, @speed = 275, 10
+    @client = PingPongClient.new 'localhost', 4001
   end
 
   attr_accessor :x, :y
@@ -46,9 +47,9 @@ class Ball
     if x <=  53.0 && y < left.y + 40 && y > left.y
       case direction
       when 'second'
-        @angle += 90
+        @angle += (720 - 2 * angle)
       when 'third'
-        @angle -= 90
+        @angle -= (2 * angle - 360)
       end
     end 
   end
@@ -59,9 +60,9 @@ class Ball
     if x >=  592 && y < right.y + 40 && y > right.y
       case direction
       when 'first'
-        @angle -= 90
+        @angle -= 2 * angle
       when 'fourth'
-        @angle += 90
+        @angle += (360 - 2 * angle)
       end
     end 
   end
@@ -71,39 +72,39 @@ class Ball
     case direction
     when 'first'
       if @x >= 612
-        @angle -= 90
+        @angle -= 2 * angle
         left = window.world.get_left_player
         left.add_score
         reboot
       elsif @y <= 31
-        @angle += 90
+        @angle += (180 - 2 * angle)
       end
     when 'second'
       if @x <= 32
-        @angle += 90
+        @angle += (720 - 2 * angle)
         right = window.world.get_right_player
         right.add_score
         reboot
       elsif @y <= 31
-        @angle -= 90
+        @angle -= (2 * angle - 540)
       end
     when 'third'
       if @x <= 32
-        @angle -= 90
+        @angle -= (2 * angle - 360)
         right = window.world.get_right_player
         right.add_score
         reboot
       elsif @y >= 454
-        @angle += 90
+        @angle += (540 - 2 * angle)
       end
     when 'fourth'
       if @x >= 612
-        @angle += 90
+        @angle += (360 - 2 * angle)
         left = window.world.get_left_player
         left.add_score
         reboot
       elsif @y >= 454
-        @angle -= 90
+        @angle -= (2 * angle - 180)
       end
     end
   end
@@ -147,7 +148,8 @@ class Ball
 
   #reboot ball, after add scores to players
   def reboot
-    @x, @y, @angle = 320, 240, [-80,80].sample
+    new_angle = (@client.reboot_ball).to_f
+    @x, @y, @angle = 320, 240, new_angle
     window.world.me.reboot
     window.world.you.reboot
   end
