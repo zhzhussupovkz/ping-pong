@@ -12,7 +12,7 @@ require "socket"
 class PingPongServer
 
   def initialize port
-    @server = TCPServer.new port
+    @server = TCPServer.open port
     puts "Listening on port #{@server.local_address.ip_port}"
 
     #player's coordinates
@@ -24,30 +24,26 @@ class PingPongServer
 
   #start server
   def start
-    Socket.accept_loop(@server) do |conn|
-      listen conn
-      conn.close
+    loop do
+      Thread.start(@server.accept) do |client|
+        process client
+      end
     end
   end
 
-  def listen conn
-    request = conn.read
-    process request
-  end
-
-  def process request
-    command, position, value = request.split
+  #process data from client and send
+  def process client
+    data = client.read
+    command, position, value = data.split
     case command.upcase
-    when 'GET'
-      #get player's coordinates
-      @storage[position].to_i
     when 'SET'
-      #set player's coordinates
-      @storage[position] = value.to_i
+      @storage[position] = value
+    when 'GET'
+      @storage[position]
     when 'CLOSE'
-      'Good bye!'
       exit
     end
+    client.close
   end
 end
 

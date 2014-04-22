@@ -16,7 +16,6 @@ class Ball
   attr_accessor :x, :y
   attr_reader :window
 
-
   #draw ball
   def draw
     @img.draw_rot x, y, 2, angle

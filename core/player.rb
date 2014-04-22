@@ -32,11 +32,13 @@ class Player
   #move up
   def up
     @y -= @speed if @y >= 30
+    @client.set @position, @y
   end
 
   #move down
   def down
     @y += @speed if @y <= 415
+    @client.set @position, @y
   end
 
   #add score
@@ -61,5 +63,11 @@ class Player
       @x, @y = 600, 220
     end
   end
+
+  #close connection with ping pong server
+  def close_connection
+    @client.close
+  end
+  
 
 end

@@ -69,4 +69,10 @@ class World
     ball.play_game_by_right
   end
 
+  #close client connections
+  def close_connections
+    me.close_connection
+    you.close_connection
+  end
+
 end

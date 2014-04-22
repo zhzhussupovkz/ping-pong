@@ -31,6 +31,7 @@ class GameWindow < Gosu::Window
   def button_down(key)
     case key
     when Gosu::KbEscape
+      world.close_connections
       close
     end
   end

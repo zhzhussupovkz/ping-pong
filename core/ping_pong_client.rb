@@ -15,22 +15,25 @@ class PingPongClient
   
   attr_reader :host, :port
 
-  def get ip
-    request "GET #{ip}"
+  #set player's coordinate
+  def set position, value
+    socket = TCPSocket.new(host, port)
+    socket.write "SET #{position} #{value}"
+    socket.close
   end
 
-  def set ip, value
-    request "SET #{ip} #{value}"
+  #get player's coordinate
+  def get position
+    socket = TCPSocket.new(host, port)
+    socket.write "GET #{position}"
+    socket.close
   end
-  
+
+  #close connection with server
   def close
-    request "CLOSE"
+    socket = TCPSocket.new(host, port)
+    socket.write "CLOSE"
+    socket.close
   end
 
-  def request data
-    @client = TCPSocket.new host, port
-    @client.write(data)
-    @client.close_write
-    @client.read
-  end
 end
