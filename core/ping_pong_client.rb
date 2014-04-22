@@ -26,6 +26,8 @@ class PingPongClient
   def get position
     socket = TCPSocket.new(host, port)
     socket.write "GET #{position}"
+    socket.close_write
+    return socket.read
     socket.close
   end
 

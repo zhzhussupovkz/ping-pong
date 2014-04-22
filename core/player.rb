@@ -19,6 +19,7 @@ class Player
     end
     @score, @speed = 0, 5
     @client = PingPongClient.new 'localhost', 4001
+    @client.get @position
   end
 
   attr_accessor :x, :y, :score, :speed
@@ -51,6 +52,9 @@ class Player
     if is_me
       up if window.button_down? Gosu::KbUp
       down if window.button_down? Gosu::KbDown
+    else
+      y = @client.get @position
+      @y = y.to_f
     end
   end
 
@@ -69,5 +73,4 @@ class Player
     @client.close
   end
   
-
 end

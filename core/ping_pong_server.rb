@@ -17,8 +17,8 @@ class PingPongServer
 
     #player's coordinates
     @storage = {
-      'left' => 320,
-      'right' => 320
+      'left' => 220,
+      'right' => 220
     }
   end
 
@@ -39,7 +39,7 @@ class PingPongServer
     when 'SET'
       @storage[position] = value
     when 'GET'
-      @storage[position]
+      client.write("#{@storage[position]}")
     when 'CLOSE'
       exit
     end
