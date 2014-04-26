@@ -44,13 +44,16 @@ class PingPongServer
     command, position, value = data.split
     case command.upcase
     when 'SET'
+      puts "SET request from #{position} (#{client.local_address.ip_port})"
       @storage[position] = value
     when 'REBOOT'
       angle = [75, 275].sample
       client.write("#{angle}")
     when 'GET'
+      puts "GET request from #{position} (#{client.local_address.ip_port})"
       client.write("#{@storage[position]}")
     when 'CLOSE'
+      puts "CLOSE all connections"
       exit
     end
     client.close
